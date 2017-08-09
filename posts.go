@@ -31,6 +31,7 @@ type Post struct {
 	UpdatedBy   int        `json:"updated_by"`
 }
 
+// intBool parses an integer as a boolean, where 0 is false and 1 is true
 type intBool bool
 
 func (bit *intBool) UnmarshalJSON(data []byte) error {
