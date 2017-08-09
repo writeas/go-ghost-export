@@ -1,6 +1,9 @@
 package ghost
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 const (
 	// Post statuses
@@ -16,8 +19,8 @@ type Post struct {
 	Slug        string    `json:"slug"`
 	Markdown    string    `json:"markdown"`
 	HTML        string    `json:"html"`
-	Featured    bool      `json:"featured"`
-	Page        bool      `json:"page"`
+	Featured    intBool   `json:"featured"`
+	Page        intBool   `json:"page"`
 	Status      string    `json:"status"`
 	Language    string    `json:"language"`
 	PublishedAt time.Time `json:"published_at"`
@@ -26,4 +29,18 @@ type Post struct {
 	CreatedBy   int       `json:"created_by"`
 	UpdatedAt   time.Time `json:"updated_at"`
 	UpdatedBy   int       `json:"updated_by"`
+}
+
+type intBool bool
+
+func (bit *intBool) UnmarshalJSON(data []byte) error {
+	s := string(data)
+	if s == "1" || s == "true" {
+		*bit = true
+	} else if s == "0" || s == "false" {
+		*bit = false
+	} else {
+		return fmt.Errorf("intBool unmarshal error: invalid input %s", s)
+	}
+	return nil
 }
