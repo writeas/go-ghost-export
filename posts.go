@@ -7,8 +7,8 @@ import (
 
 const (
 	// Post statuses
-	// TODO: add other statuses
 	PostStatusPublished = "published"
+	PostStatusDraft     = "draft"
 )
 
 // Post represents a post in Ghost
